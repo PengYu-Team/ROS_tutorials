@@ -1,0 +1,16 @@
+<launch>
+
+<!-- vrpn -->
+<!-- 注意修改vicon电脑ip地址 -->
+ <include file="$(find vrpn_client_ros)/launch/sample.launch">
+	<arg name="server" value="192.168.1.2"/>
+</include> 
+
+<node pkg="test1" type="anynode" name="node1"  output="screen" launch-prefix="gnome-terminal --">
+	<param name="me" value="2" />
+	<param name="nodenum" value="4" />
+	<param name="num" value="10" />
+	<param name="object_name" value="NODE1"/>
+</node>
+
+</launch>

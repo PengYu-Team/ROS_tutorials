@@ -1,0 +1,18 @@
+<launch>
+  <node pkg="test1" name="node1" type="node1" />
+  <node pkg="test1" name="node2" type="node2" />
+  <node pkg="test1" name="node3" type="node3" />
+  <node pkg="test1" name="node4" type="node4" />
+  <node pkg="test1" name="masternode" type="masternode" />
+</launch>
+
+
+	<!-- vrpn -->
+	<!-- 注意修改vicon电脑ip地址 -->
+	<include file="$(find vrpn_client_ros)/launch/sample.launch">
+		<arg name="server" value="192.168.1.2"/>
+	</include>
+
+
+// 【订阅】optitrack估计位置
+    ros::Subscriber optitrack_sub = nh.subscribe<geometry_msgs::PoseStamped>("/vrpn_client_node/"+ object_name + "/pose", 100, mocap_cb);

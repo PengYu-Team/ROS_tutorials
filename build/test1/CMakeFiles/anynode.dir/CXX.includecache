@@ -6,6 +6,12 @@
 
 #IncludeRegexTransform: 
 
+/home/claire/cxh/test1/src/test1/include/math_utils.h
+Eigen/Eigen
+-
+math.h
+-
+
 /home/claire/cxh/test1/src/test1/src/anynode.cpp
 ros/ros.h
 /home/claire/cxh/test1/src/test1/src/ros/ros.h
@@ -15,6 +21,8 @@ sstream
 -
 geometry_msgs/PoseStamped.h
 /home/claire/cxh/test1/src/test1/src/geometry_msgs/PoseStamped.h
+math_utils.h
+/home/claire/cxh/test1/src/test1/src/math_utils.h
 
 /opt/ros/melodic/include/geometry_msgs/Point.h
 string

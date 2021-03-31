@@ -10,6 +10,7 @@
 	<param name="me" value="2" />
 	<param name="nodenum" value="4" />
 	<param name="num" value="10" />
+	<param name="frequ" value="1" />
 	<param name="object_name" value="NODE1"/>
 </node>
 

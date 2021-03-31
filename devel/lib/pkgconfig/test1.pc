@@ -1,8 +1,0 @@
-prefix=/home/claire/cxh/test1/devel
-
-Name: test1
-Description: Description of test1
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

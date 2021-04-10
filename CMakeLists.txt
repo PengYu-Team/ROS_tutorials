@@ -7,7 +7,23 @@ project(ROS_tutorials)
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED COMPONENTS roscpp rospy std_msgs geometry_msgs)
+
+# find_package(catkin REQUIRED COMPONENTS message_generation roscpp rospy std_msgs geometry_msgs)
+find_package(catkin REQUIRED COMPONENTS
+  message_generation  
+  roscpp
+  rospy
+  geometry_msgs
+  nav_msgs
+  sensor_msgs
+  mavros
+  std_msgs
+  std_srvs
+  tf
+  tf2_ros
+  tf2_eigen
+  mavros_msgs
+)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -43,11 +59,9 @@ find_package(catkin REQUIRED COMPONENTS roscpp rospy std_msgs geometry_msgs)
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
-# add_message_files(
-#   FILES
-#   Message1.msg
-#   Message2.msg
-# )
+add_message_files(FILES
+  DroneState.msg
+)
 
 ## Generate services in the 'srv' folder
 # add_service_files(
@@ -64,10 +78,10 @@ find_package(catkin REQUIRED COMPONENTS roscpp rospy std_msgs geometry_msgs)
 # )
 
 ## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
-#   std_msgs
-# )
+generate_messages(DEPENDENCIES
+  std_msgs
+  geometry_msgs 
+)
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -99,6 +113,8 @@ find_package(catkin REQUIRED COMPONENTS roscpp rospy std_msgs geometry_msgs)
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
+  CATKIN_DEPENDS
+  message_runtime
 #  INCLUDE_DIRS include
 #  LIBRARIES test1
 #  CATKIN_DEPENDS roscpp rospy std_msgs
@@ -112,6 +128,7 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
+  include ${catkin_INCLUDE_DIRS}
    include
   ${catkin_INCLUDE_DIRS}
 )
@@ -145,18 +162,18 @@ include_directories(
 # target_link_libraries(${PROJECT_NAME}_node
 #   ${catkin_LIBRARIES}
 # )
-add_executable(node1 src/node1.cpp )
-target_link_libraries(node1 ${catkin_LIBRARIES})
-add_executable(node2 src/node2.cpp )
-target_link_libraries(node2 ${catkin_LIBRARIES})
-add_executable(node3 src/node3.cpp )
-target_link_libraries(node3 ${catkin_LIBRARIES})
-add_executable(node4 src/node4.cpp )
-target_link_libraries(node4 ${catkin_LIBRARIES})
-add_executable(masternode src/masternode.cpp )
-target_link_libraries(masternode ${catkin_LIBRARIES})
-add_executable(anynode src/anynode.cpp )
-target_link_libraries(anynode ${catkin_LIBRARIES})
+# add_executable(node1 src/node1.cpp )
+# target_link_libraries(node1 ${catkin_LIBRARIES})
+# add_executable(pub_vrpn src/pub_vrpn.cpp )
+# target_link_libraries(pub_vrpn ${catkin_LIBRARIES})
+# add_executable(listen_vrpn src/listen_vrpn.cpp )
+# target_link_libraries(listen_vrpn ${catkin_LIBRARIES})
+# add_executable(node4 src/node4.cpp )
+# target_link_libraries(node4 ${catkin_LIBRARIES})
+# add_executable(masternode src/masternode.cpp )
+# target_link_libraries(masternode ${catkin_LIBRARIES})
+# add_executable(anynode src/anynode.cpp )
+# target_link_libraries(anynode ${catkin_LIBRARIES})
 
 
 #############
@@ -213,3 +230,19 @@ target_link_libraries(anynode ${catkin_LIBRARIES})
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
+
+add_executable(pub_DroneState
+  src/pub_DroneState.cpp
+)
+add_dependencies(pub_DroneState ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(pub_DroneState
+  ${catkin_LIBRARIES}
+)
+
+add_executable(pub_socket
+  src/pub_socket.cpp
+)
+add_dependencies(pub_socket ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(pub_socket
+  ${catkin_LIBRARIES}
+)

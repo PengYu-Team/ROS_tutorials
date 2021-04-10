@@ -2,16 +2,40 @@
 
 <!-- vrpn -->
 <!-- 注意修改vicon电脑ip地址 -->
- <include file="$(find vrpn_client_ros)/launch/sample.launch">
-	<arg name="server" value="192.168.1.2"/>
-</include> 
+  <arg name="server" default="192.168.1.2"/>
+  <node pkg="vrpn_client_ros" type="vrpn_client_node" name="vrpn_client_node" output="screen">
+    <rosparam subst_value="true">
+      server: $(arg server)
+      port: 801
+
+      update_frequency: 100.0
+      frame_id: world
+
+      # Use the VRPN server's time, or the client's ROS time.
+      use_server_time: false
+      broadcast_tf: true
+
+      # Must either specify refresh frequency > 0.0, or a list of trackers to create
+      refresh_tracker_frequency: 1.0
+      #trackers:
+      #- FirstTracker
+      #- SecondTracker
+    </rosparam>
+  </node>
+
+
+<!--<node pkg="ROS_tutorials" type="listen_vrpn" name="listen_vrpn"  output="screen" launch-prefix="gnome-terminal --">
+	<param name="frequ" value="1" />
+	<param name="object_name" value="turtlebot3"/>
+</node>-->
+
 
 <node pkg="ROS_tutorials" type="anynode" name="node1"  output="screen" launch-prefix="gnome-terminal --">
 	<param name="me" value="2" />
 	<param name="nodenum" value="4" />
 	<param name="num" value="10" />
 	<param name="frequ" value="1" />
-	<param name="object_name" value="NODE1"/>
+	<param name="object_name" value="turtlebot3"/>
 </node>
 
 </launch>

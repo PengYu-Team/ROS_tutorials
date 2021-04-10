@@ -1,6 +1,6 @@
 <launch>
 
-<node pkg="ROS_tutorials" type="pub_DroneState" name="pub_DS1"  output="screen" launch-prefix="gnome-terminal --">
+<node pkg="ROS_tutorials" type="pub_DroneState" name="pub_DS1"  output="screen" launch-prefix="gnome-terminal --tab --">
 		<param name="uav_name" value="uav1"/>
 </node>
 

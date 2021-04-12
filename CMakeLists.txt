@@ -246,3 +246,11 @@ add_dependencies(pub_socket ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTE
 target_link_libraries(pub_socket
   ${catkin_LIBRARIES}
 )
+
+add_executable(sub_soket
+  src/sub_soket.cpp
+)
+add_dependencies(sub_soket ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(sub_soket
+  ${catkin_LIBRARIES}
+)

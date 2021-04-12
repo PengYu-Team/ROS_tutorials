@@ -42,6 +42,7 @@
 
 
 <node pkg="ROS_tutorials" type="pub_socket" name="pub_socket" output="screen" launch-prefix="gnome-terminal --">	
+<!--<node pkg="ROS_tutorials" type="pub_socket" name="pub_socket" output="screen" >	-->
 		<param name="swarm_num" value="10"/>
 		<param name="uav1_name" value="uav1"/>
 		<param name="uav2_name" value="uav2"/>
@@ -55,6 +56,7 @@
 		<param name="uav10_name" value="ugv2"/>
 </node>
 
-
+<node pkg="ROS_tutorials" type="sub_soket" name="sub_soket" output="screen" >	
+</node>
 
 </launch>

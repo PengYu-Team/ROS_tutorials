@@ -1,0 +1,49 @@
+<launch>
+
+<arg name="uav_na" default="uav1"/>
+
+<node pkg="ROS_tutorials" type="pub_vrpn" name="$(arg uav_na)_node1" >
+		<param name="uav_name" value="$(arg uav_na)"/>
+        <param name="node_id" value="node1"/>
+        <param name="num" value="20"/>
+        <param name="listen_node" value="node2"/>
+        <param name="listen_num" value="20"/>
+</node>
+
+<node pkg="ROS_tutorials" type="pub_vrpn" name="$(arg uav_na)_node2" >
+		<param name="uav_name" value="$(arg uav_na)"/>
+        <param name="node_id" value="node2"/>
+        <param name="num" value="20"/>
+        <param name="listen_node" value="node3"/>
+        <param name="listen_num" value="20"/>
+</node>
+
+<node pkg="ROS_tutorials" type="pub_vrpn" name="$(arg uav_na)_node3" >
+		<param name="uav_name" value="$(arg uav_na)"/>
+        <param name="node_id" value="node3"/>
+        <param name="num" value="20"/>
+        <param name="listen_node" value="node4"/>
+        <param name="listen_num" value="20"/>
+</node>
+
+<node pkg="ROS_tutorials" type="pub_vrpn" name="$(arg uav_na)_node4" >
+		<param name="uav_name" value="$(arg uav_na)"/>
+        <param name="node_id" value="node4"/>
+        <param name="num" value="20"/>
+        <param name="listen_node" value="node5"/>
+        <param name="listen_num" value="20"/>
+</node>
+
+<node pkg="ROS_tutorials" type="pub_vrpn" name="$(arg uav_na)_node5" >
+		<param name="uav_name" value="$(arg uav_na)"/>
+        <param name="node_id" value="node5"/>
+        <param name="num" value="20"/>
+        <param name="listen_node" value="node1"/>
+        <param name="listen_num" value="20"/>
+</node>
+
+<node pkg="ROS_tutorials" type="listen_vrpn" name="$(arg uav_na)_vrpn" >
+		<param name="object_name" value="$(arg uav_na)"/>
+</node>
+
+</launch>

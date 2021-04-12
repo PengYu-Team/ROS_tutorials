@@ -1,0 +1,8 @@
+<launch>
+
+<node pkg="ROS_tutorials" type="masternode" name="master" >
+		<param name="node_num" value="5"/>
+        <param name="uav_num" value="8"/>
+</node>
+
+</launch>

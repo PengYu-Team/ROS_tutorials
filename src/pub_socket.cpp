@@ -16,16 +16,17 @@
 using namespace std;
 //参数声明
 int swarm_num;
-const int max_swarm_num = 8; // indicate max num
+const int max_swarm_num =10; // indicate max num
 string uav_name[max_swarm_num+1];
 int uav_id[max_swarm_num+1];
 ROS_tutorials::DroneState State_uav[max_swarm_num+1];
 ros::Subscriber drone_state_sub[max_swarm_num+1];
-char const *servInetAddr = "127.0.0.1"; //sever ip
+char const *servInetAddr = "192.168.1.3"; //sever ip
 string data;
 char sendline[1024];
-int socketfd;
+int socketfd,connfd;
 struct sockaddr_in sockaddr;
+char buff[128];
 
 //函数声明
 void drone_state_cb1(const ROS_tutorials::DroneState::ConstPtr& msg) { State_uav[1] = *msg; }
@@ -36,8 +37,10 @@ void drone_state_cb5(const ROS_tutorials::DroneState::ConstPtr& msg) { State_uav
 void drone_state_cb6(const ROS_tutorials::DroneState::ConstPtr& msg) { State_uav[6] = *msg; }
 void drone_state_cb7(const ROS_tutorials::DroneState::ConstPtr& msg) { State_uav[7] = *msg; }
 void drone_state_cb8(const ROS_tutorials::DroneState::ConstPtr& msg) { State_uav[8] = *msg; }
+void drone_state_cb9(const ROS_tutorials::DroneState::ConstPtr& msg) { State_uav[9] = *msg; }
+void drone_state_cb10(const ROS_tutorials::DroneState::ConstPtr& msg) { State_uav[10] = *msg; }
 void (*drone_state_cb[max_swarm_num+1])(const ROS_tutorials::DroneState::ConstPtr&)={NULL,drone_state_cb1,drone_state_cb2,
-    drone_state_cb3,drone_state_cb4,drone_state_cb5,drone_state_cb6,drone_state_cb7,drone_state_cb8};
+    drone_state_cb3,drone_state_cb4,drone_state_cb5,drone_state_cb6,drone_state_cb7,drone_state_cb8,drone_state_cb9,drone_state_cb10};
 
 
 //主函数
@@ -54,6 +57,10 @@ int main(int argc, char **argv)
         nh.param<string>((fmt1%(i)).str(), uav_name[i], "/none");
         boost::format fmt2("uav%d_id");
         nh.param<int>((fmt2%(i)).str(), uav_id[i], 0);
+        {
+            /* code for True */
+        }
+        
         // 订阅
         //cout << uav_name[i] + "/prometheus/swarm_command" << endl;           //什么意思嗷？
         // drone_state_sub[i] = nh.subscribe<ROS_tutorials::DroneState>(uav_name[i] + "/prometheus/drone_state", 10, drone_state_cb[i]);
@@ -83,10 +90,25 @@ int main(int argc, char **argv)
                 printf("connect error %s errno: %d\n",strerror(errno),errno);
                 printf("client connect failed!\n");
             }
+
             if((send(socketfd,sendline,strlen(sendline),0)) < 0)
             {
                 printf("send mes error: %s errno : %d\n",strerror(errno),errno);
                 printf("client send failed!\n");
+            }
+
+            if((connfd = accept(socketfd,(struct sockaddr*)NULL,NULL))<0) {
+			    printf("accpet socket error: %s errno :%d\n",strerror(errno),errno);
+		    }
+            int n;
+             if(n =recv(connfd,buff,128,0) < 0)
+            {
+                printf("accpet socket mes error: %s errno : %d\n",strerror(errno),errno);
+                printf("accpet socket failed!\n");
+            }
+            else {
+                buff[n] = '\0';
+                cout<<buff<<endl;
             }
             close(socketfd);
         }
